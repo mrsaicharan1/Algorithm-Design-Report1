@@ -69,10 +69,10 @@ int main()
   // printf("In the given fractional number,the integer part is %d and the fractional part is %.3f \n\n The decimal is present at location %d ",IntegerPart,FractionalPart,loc);
    printf("The digits separated out:\n");
     for(i=0;i<sizeof(getIntegerPart(num))/sizeof(int) - 1;i++){
-   printf("%d\t",*(left+i));
+   printf("%d\t",*(left+sizeof(int)*i));
    }
    for(i=0;i<sizeof(getFractionalPart(num))/sizeof(int) - 1;i++){
-   printf("%d\t",*(right+i));
+   printf("%d\t",*(right+sizeof(int)*i));
    }
   
     
