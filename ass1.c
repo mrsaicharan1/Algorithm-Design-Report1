@@ -14,24 +14,27 @@ void display();
 int main()
 {
     int intpart,dig,count;
-    float given,x,decpart;
+    float given,x,decpart,flag=0;
     scanf("%f",&given);
     intpart=(int) given;
     decpart=given-intpart;
     count=0;
-    while(1)
+    while(1)//ADDING THE INTEGER DIGITS TO THE LIST
     {
         dig=intpart%10;
         if(dig>0)
             start=addstart(dig);
         else
+            {
+            flag=1;//for checking whether the given number is negative or not
             start=addstart(-1*dig);
-        count++;
+            }
+        count++;//count is used for finding the decimal point location from the left
         intpart=intpart/10;
         if(intpart==0)
             break;
     }
-    while(1)
+    while(1)//ADDING THE DECIMAL DIGITS TO THE LIST
     {
         given=given*10;
         dig=((int)given)%10;
@@ -43,6 +46,10 @@ int main()
             break;
     }
     display();
+    if(flag==1)
+    {
+        printf("The given number is a negative number\n");
+    }
     printf("Point is %d from the beginning\n",count);
 
 }
