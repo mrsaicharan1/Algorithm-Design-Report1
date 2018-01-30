@@ -19,6 +19,11 @@ int main() // Best : 16 Worst:9+2p+22n-4(p^2)+4pn
     intpart=(int) given;
     decpart=given-intpart;//2
     count=0;//1
+    if(given==0)//If input is zero
+    {
+        printf("The given input is zero\n");
+        exit(1);
+    }
     while(1)//ADDING THE INTEGER DIGITS TO THE LIST   Best case: 2  Worst case: p*(19)
     {
         if(intpart==0)//1
