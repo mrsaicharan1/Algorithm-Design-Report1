@@ -21,6 +21,8 @@ int main()
     count=0;
     while(1)//ADDING THE INTEGER DIGITS TO THE LIST
     {
+        if(intpart==0)
+            break;
         dig=intpart%10;
         if(dig>0)
             start=addstart(dig);
@@ -31,19 +33,17 @@ int main()
             }
         count++;//count is used for finding the decimal point location from the left
         intpart=intpart/10;
-        if(intpart==0)
-            break;
     }
     while(1)//ADDING THE DECIMAL DIGITS TO THE LIST
     {
+        if(given-(int)given == 0)
+            break;
         given=given*10;
         dig=((int)given)%10;
         if(dig>0)
             start=addend(dig);
         else
             start=addend(-1*dig);
-        if(given-(int)given == 0)
-            break;
     }
     display();
     if(flag==1)
