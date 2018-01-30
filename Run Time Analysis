@@ -1,0 +1,98 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct node{
+    int digit;
+    struct node *next;
+} *start=NULL;
+
+struct node* addstart();
+struct node* addend();
+void display();
+
+int main() // Best : 16 Worst:9+2p+22n-4(p^2)+4pn
+{
+    int intpart,dig,count;
+    float given,x,decpart,flag=0;
+    scanf("%f",&given);
+    intpart=(int) given;
+    decpart=given-intpart;//2
+    count=0;//1
+    while(1)//ADDING THE INTEGER DIGITS TO THE LIST   Best case: 2  Worst case: p*(19)
+    {
+        if(intpart==0)//1
+            break;//1
+        dig=intpart%10;//2
+        if(dig>0)//1
+            start=addstart(dig);//k+7
+        else
+            {
+            flag=1;//for checking whether the given number is negative or not//1
+            start=addstart(-1*dig);//k+8
+            }
+        count++;//count is used for finding the decimal point location from the left//2
+        intpart=intpart/10;//2
+    }
+    while(1)//ADDING THE DECIMAL DIGITS TO THE LIST  Best :4 worst : (4p +17)*(n-p)+4
+    {
+        if(given-(int)given == 0)//3
+            break;//1
+        given=given*10;//2
+        dig=((int)given)%10;//3
+        if(dig>0)//1
+            start=addend(dig);//Best : 10 Worst: 4p+10
+        else
+            start=addend(-1*dig);//Best : 11 Worst :4p+11
+    }
+    display(); // BEst : 6 Worst : 5n-1
+    if(flag==1)// Worst :2
+    {
+        printf("The given number is a negative number\n");
+    }
+    printf("Point is %d from the beginning\n",count);//1
+
+}
+struct node* addstart(int k)//7
+{
+    struct node *temp;
+    temp=(struct node*)malloc(sizeof(struct node));//1
+    temp->digit=k;//2
+    temp->next=start;//2
+    start=temp;//1
+    return start;//1
+}
+struct node* addend(int k)//Best : 9 Worst: 9+ 4p
+{
+    struct node *ptr,*temp;
+    temp=(struct node*)malloc(sizeof(struct node));//1
+    temp->digit=k;//2
+    temp->next=NULL;//2
+    ptr=start;//1
+    if(ptr==NULL)//1
+    {
+        start=temp;//1
+        return start;//1
+    }
+    else
+    {
+        while(ptr->next!=NULL)//2
+        {
+            ptr=ptr->next;//2
+        }
+        ptr->next=temp;//1
+        return start;//1
+    }
+}
+void display()// BEst : 6 Worst : 5n-1
+{
+    struct node *ptr;
+    ptr=start;//2
+    while(ptr->next!=NULL)//2
+    {
+        printf("%d ",ptr->digit);//1
+        ptr=ptr->next;//2
+    }
+    printf("%d\n",ptr->digit);//1
+    return;//1
+}
